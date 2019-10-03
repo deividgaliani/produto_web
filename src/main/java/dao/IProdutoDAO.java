@@ -3,10 +3,11 @@ package dao;
 import java.util.List;
 
 import model.Produto;
+import servlet.ProdutoVO;
 
 public interface IProdutoDAO {
 
-	public List<Produto> recuperarTodos();
+	public List<ProdutoVO> recuperarTodos();
 	
 	public Produto recuperarPorId(Integer id);
 	

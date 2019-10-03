@@ -5,6 +5,7 @@ import java.util.List;
 import dao.IProdutoDAO;
 import dao.ProdutoDAO;
 import model.Produto;
+import servlet.ProdutoVO;
 
 public class ProdutoService implements IProdutoService {
 	
@@ -18,7 +19,7 @@ public class ProdutoService implements IProdutoService {
 		}
 	}
 
-	public List<Produto> recuperarTodos() {
+	public List<ProdutoVO> recuperarTodos() {
 		return getProdutoDAO().recuperarTodos();
 	}
 	

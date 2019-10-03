@@ -29,7 +29,7 @@ public class ProdutoServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Produto> produtos = getListaProdutosFromSession(request.getSession());
+		List<ProdutoVO> produtos = getProdutoService().recuperarTodos();
 		
 		Gson gson = new GsonBuilder().create();
         String json = gson.toJson(produtos);

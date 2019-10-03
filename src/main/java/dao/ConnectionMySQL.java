@@ -18,7 +18,7 @@ public class ConnectionMySQL {
 			String databaseName = "produtoweb";
 			String urlConection = "jdbc:mysql://" + serverName + "/" + databaseName;
 			String username = "root"; 
-			String password = "1234";
+			String password = "123456";
 			conexao = DriverManager.getConnection(urlConection, username, password);
 			
 			if(conexao != null) {

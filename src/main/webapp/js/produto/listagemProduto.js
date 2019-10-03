@@ -20,6 +20,7 @@ var adicionaDadosTabela = function(produtos){
 				"<td>" + 1 +"</td>" +
 				"<td>" + produto.nome +"</td>" +
 				"<td>" + produto.descricao +"</td>" +
-				"<td>" + produto.valor +"</td></tr>"	);
+				"<td>" + produto.valor +"</td>" +
+				"<td>" + produto.descricaoCategoria +"</td></tr>"	);
 	});
 }

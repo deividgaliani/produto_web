@@ -14,6 +14,7 @@
 					<th>NOME</th>
 					<th>DESCRIÇÃO</th>
 					<th>VALOR</th>
+					<th>CATEGORIA</th>
 				</tr>
 			</thead>
 			<tbody>

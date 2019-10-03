@@ -2,32 +2,45 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Produto;
+import servlet.ProdutoVO;
 
 public class ProdutoDAO implements IProdutoDAO {
 
-	public List<Produto> recuperarTodos() {
+	public List<ProdutoVO> recuperarTodos() {
+		List<ProdutoVO> produtosVO = new ArrayList<ProdutoVO>();
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT ")
-		   .append(" 		prd.ID \"ID\" ")
-		   .append(" 		prd.NOME \"NOME\" ")
-		   .append(" 		prd.DESCRICAO \"DESCRICAO\" ")
-		   .append("		prd.VALOR \"VALOR\" ")
-		   .append("		prd.CATEGORIA \"CATEGORIA\" ")
+		   .append(" 		prd.ID \"ID\", ")
+		   .append(" 		prd.NOME \"NOME\", ")
+		   .append(" 		prd.DESCRICAO \"DESCRICAO\", ")
+		   .append("		prd.VALOR \"VALOR\", ")
+		   .append("		cat.DESCRICAO \"CATEGORIA\" ")
 		   .append(" FROM PRODUTO prd ")
 		   .append(" INNER JOIN CATEGORIA cat ON cat.id = prd.id_categoria ");
 		
 		try {
 			Connection conn = ConnectionMySQL.getConexaoMySQL();
 			PreparedStatement ps = conn.prepareStatement(sql.toString());
-			ps.execute();
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Integer id = rs.getInt("ID");
+				String nome = rs.getString("NOME");
+				String descricao = rs.getString("DESCRICAO");
+				Double valor = rs.getDouble("VALOR");
+				String descricaoCategoria = rs.getString("CATEGORIA");
+				ProdutoVO vo = new ProdutoVO(id, nome, descricao, valor, descricaoCategoria);
+				produtosVO.add(vo);		
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return produtosVO;
 	}
 
 	public Produto recuperarPorId(Integer id) {
