@@ -15,10 +15,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import model.Produto;
+import service.IProdutoService;
+import service.ProdutoService;
 
 @WebServlet("/produto")
 public class ProdutoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private IProdutoService produtoService;
        
     public ProdutoServlet() {
         super();
@@ -40,7 +44,8 @@ public class ProdutoServlet extends HttpServlet {
 			Double valor = Double.parseDouble(request.getParameter("valor"));
 			Integer categoria = Integer.parseInt(request.getParameter("categoria"));
 			Produto produto = new Produto(nome, descricao, valor, categoria);
-			salvar(produto, request.getSession());
+			getProdutoService().salvar(produto);
+//			salvar(produto, request.getSession());
 			response.getWriter().write("Produto inserido com sucesso");
 		}catch (Exception e) {
 			response.getWriter().write(e.getMessage());
@@ -65,6 +70,13 @@ public class ProdutoServlet extends HttpServlet {
 	
 	private void setListaProdutos(List<Produto> listaProdutos, HttpSession session) {
 		session.setAttribute("listaProdutos", listaProdutos);
+	}
+	
+	public IProdutoService getProdutoService() {
+		if (produtoService == null) {
+			produtoService = new ProdutoService();
+		}
+		return produtoService;
 	}
 
 
