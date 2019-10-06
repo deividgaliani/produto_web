@@ -7,14 +7,14 @@ import servlet.ProdutoVO;
 
 public interface IProdutoDAO {
 
-	public List<ProdutoVO> recuperarTodos() throws RuntimeException;
+	public List<ProdutoVO> recuperarTodos();
 	
-	public Produto recuperarPorId(Integer id) throws RuntimeException;
+	public ProdutoVO recuperarPorId(Integer id);
 	
-	public Produto alterar(Produto produto) throws RuntimeException;
+	public void alterar(Produto produto);
 	
-	public void excluir(Integer id) throws RuntimeException;
+	public void excluir(Integer id);
 	
-	public void insere(Produto produto) throws RuntimeException;
+	public void insere(Produto produto);
 	
 }

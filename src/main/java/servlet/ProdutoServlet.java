@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -53,13 +54,11 @@ public class ProdutoServlet extends HttpServlet {
 				salvarProduto(request, resultado);
 			}else if(acao.equals("excluir")) {
 				excluirProduto(request, resultado);
-			}else if(acao.equals("alterar")) {
-				Integer idProduto = Integer.parseInt(request.getParameter("idProduto"));
-				String url = "/cadastroProduto.jsp";
-				request.setAttribute("idProduto", idProduto);
-				RequestDispatcher rd = request.getRequestDispatcher(url);
-				rd.forward(request, response);
-				return;
+			}else if(acao.equals("buscar")) {
+				Integer idProduto = request.getParameter("idProduto") != null ? Integer.parseInt(request.getParameter("idProduto")) : null;
+				ProdutoVO vo = getProdutoService().recuperarPorId(idProduto);
+				resultado.setDados(Arrays.asList(vo));
+				resultado.setSucesso(Boolean.TRUE);
 			}
 		}catch (NumberFormatException nfe) {
 			resultado.setSucesso(Boolean.FALSE);
@@ -82,11 +81,12 @@ public class ProdutoServlet extends HttpServlet {
 	private void salvarProduto(HttpServletRequest request, ResultadoOperacao<ProdutoVO> resultado) {
 		String nome = request.getParameter("nome");
 		String descricao = request.getParameter("descricao");
-		Double valor = Double.parseDouble(request.getParameter("valor"));
-		Integer categoria = Integer.parseInt(request.getParameter("categoria"));
-		Produto produto = new Produto(nome, descricao, valor, categoria);
+		Double valor = request.getParameter("valor") != null ? Double.parseDouble(request.getParameter("valor")) : null;
+		Integer categoria = !request.getParameter("categoria").isEmpty() ? Integer.parseInt(request.getParameter("categoria")) : null;
+		Integer idProduto = request.getParameter("idProduto") != null ? Integer.parseInt(request.getParameter("idProduto")) : null;
+		Produto produto = new Produto(idProduto, nome, descricao, valor, categoria);
 		getProdutoService().salvar(produto);
-		resultado.setMensagem("Produto inserido com sucesso");
+		resultado.setMensagem("Produto persistido com sucesso");
 		resultado.setSucesso(Boolean.TRUE);
 	}
 	

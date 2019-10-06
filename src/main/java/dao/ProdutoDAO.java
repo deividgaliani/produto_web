@@ -12,7 +12,7 @@ import servlet.ProdutoVO;
 
 public class ProdutoDAO implements IProdutoDAO {
 
-	public List<ProdutoVO> recuperarTodos() throws RuntimeException{
+	public List<ProdutoVO> recuperarTodos(){
 		List<ProdutoVO> produtosVO = new ArrayList<ProdutoVO>();
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT ")
@@ -44,17 +44,56 @@ public class ProdutoDAO implements IProdutoDAO {
 		return produtosVO;
 	}
 
-	public Produto recuperarPorId(Integer id) throws RuntimeException{
-		// TODO Auto-generated method stub
-		return null;
+	public ProdutoVO recuperarPorId(Integer id){
+		ProdutoVO produto = new ProdutoVO();
+		StringBuilder sql = new StringBuilder();
+		sql.append(" SELECT ")
+		   .append(" 		prd.ID \"ID\", ")
+		   .append(" 		prd.NOME \"NOME\", ")
+		   .append(" 		prd.DESCRICAO \"DESCRICAO\", ")
+		   .append("		prd.VALOR \"VALOR\", ")
+		   .append("		prd.ID_CATEGORIA \"CATEGORIA\" ")
+		   .append(" FROM PRODUTO prd ")
+		   .append(" WHERE prd.ID = ? ");
+		
+		try {
+			Connection conn = ConnectionMySQL.getConexaoMySQL();
+			PreparedStatement ps = conn.prepareStatement(sql.toString());
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				produto.setId(rs.getInt("ID"));
+				produto.setNome(rs.getString("NOME"));
+				produto.setDescricao(rs.getString("DESCRICAO"));
+				produto.setValor(rs.getDouble("VALOR"));
+				produto.setCategoria(rs.getInt("CATEGORIA"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Falha ao tentar buscar produtos");
+		}
+		return produto;
 	}
 
-	public Produto alterar(Produto produto) throws RuntimeException{
-		// TODO Auto-generated method stub
-		return null;
+	public void alterar(Produto produto){
+		try {
+			Connection conn = ConnectionMySQL.getConexaoMySQL();
+			String sql = " UPDATE PRODUTO SET NOME = ?, DESCRICAO = ?, VALOR = ?, ID_CATEGORIA = ? WHERE ID = ? ";
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, produto.getNome());
+			statement.setString(2, produto.getDescricao());
+			statement.setDouble(3, produto.getValor());
+			statement.setInt(4, produto.getCategoria());
+			statement.setInt(5, produto.getId());
+			statement.execute();
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Falha ao tentar alterar produto");
+		}		
 	}
 
-	public void excluir(Integer id) throws RuntimeException{
+	public void excluir(Integer id){
 		String sql = " DELETE FROM PRODUTO WHERE ID = ? ";
 		try {
 			Connection conn = ConnectionMySQL.getConexaoMySQL();
@@ -68,7 +107,7 @@ public class ProdutoDAO implements IProdutoDAO {
 		}
 	}
 
-	public void insere(Produto produto) throws RuntimeException{		
+	public void insere(Produto produto){		
 		try {
 			Connection conn = ConnectionMySQL.getConexaoMySQL();
 			String sql = " INSERT INTO PRODUTO(NOME, DESCRICAO, VALOR, ID_CATEGORIA) VALUES(?, ?, ?, ?) ";

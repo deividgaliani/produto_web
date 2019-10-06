@@ -10,6 +10,8 @@ public class ProdutoVO {
 	
 	private Double valor;
 	
+	private Integer categoria;
+	
 	private String descricaoCategoria;
 
 	public ProdutoVO() {
@@ -63,6 +65,13 @@ public class ProdutoVO {
 	public void setDescricaoCategoria(String descricaoCategoria) {
 		this.descricaoCategoria = descricaoCategoria;
 	}
-	
+
+	public Integer getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Integer categoria) {
+		this.categoria = categoria;
+	}
 	
 }

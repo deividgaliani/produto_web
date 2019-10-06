@@ -18,7 +18,6 @@
 		  
 		  <div class="col col-12" style="text-align: right;">
 			  <button type="button" id="btnInserirCategoria" class="btn btn-primary">Cadastrar</button>
-			  <button type="button" id="btnLimparFormulario" class="btn btn-warning">Limpar</button>
 		  </div>
 		</form>
 		<script src="./js/categoria/cadastroCategoria.js"></script>

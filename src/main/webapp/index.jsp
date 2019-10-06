@@ -21,5 +21,6 @@
 			</table>
 		</div>	
 		<script src="./js/produto/listagemProduto.js"></script>
+		<%@ include file = "./modalAlterarProduto.jsp" %>
     </jsp:body>
 </t:principal>

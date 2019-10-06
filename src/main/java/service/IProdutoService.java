@@ -13,4 +13,6 @@ public interface IProdutoService {
 	
 	public void exluir(Integer id);
 	
+	public ProdutoVO recuperarPorId(Integer id);
+	
 }

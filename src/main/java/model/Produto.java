@@ -16,11 +16,12 @@ public class Produto {
 		//default constructor
 	}
 	
-	public Produto(String nome, String descricao, Double valor, Integer categoria) {
-		this.nome = nome;
-		this.descricao = descricao;
-		this.valor = valor;
-		this.categoria = categoria;
+	public Produto(Integer id, String nome, String descricao, Double valor, Integer categoria) throws RuntimeException{
+		setId(id);
+		setNome(nome);
+		setDescricao(descricao);
+		setValor(valor);
+		setCategoria(categoria);
 	}
 
 	public String getNome() {
@@ -28,6 +29,7 @@ public class Produto {
 	}
 
 	public void setNome(String nome) {
+		validaValorNulo(nome);
 		this.nome = nome;
 	}
 
@@ -36,6 +38,7 @@ public class Produto {
 	}
 
 	public void setDescricao(String descricao) {
+		validaValorNulo(descricao);
 		this.descricao = descricao;
 	}
 
@@ -44,6 +47,7 @@ public class Produto {
 	}
 
 	public void setValor(Double valor) {
+		validaValorNulo(valor);
 		this.valor = valor;
 	}
 
@@ -52,6 +56,7 @@ public class Produto {
 	}
 
 	public void setCategoria(Integer categoria) {
+		validaValorNulo(categoria);
 		this.categoria = categoria;
 	}
 
@@ -61,6 +66,12 @@ public class Produto {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	private void validaValorNulo(Object valor) throws RuntimeException{
+		if(valor == null) {
+			throw new RuntimeException("Todos os campos são obrigatórios");
+		}
 	}
 	
 }

@@ -27,8 +27,13 @@ public class ProdutoService implements IProdutoService {
 		getProdutoDAO().excluir(id);
 	}
 	
+	public ProdutoVO recuperarPorId(Integer id) {
+		return getProdutoDAO().recuperarPorId(id);
+	}
+	
 	public IProdutoDAO getProdutoDAO() {
 		return produtoDAO;
 	}
+
 	
 }

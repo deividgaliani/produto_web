@@ -27,8 +27,8 @@ var adicionaDadosTabela = function(produtos){
 				"<td>" + produto.descricao +"</td>" +
 				"<td>" + produto.valor +"</td>" +
 				"<td>" + produto.descricaoCategoria +"</td>" +
-				"<td><a onclick='excluirProduto(" + produto.id + ")' href='#'>excluir</a></td>" + 
-//				" <a onclick='alterarProduto(" + produto.id + ")' href='#'>alterar</a></td>" +
+				"<td><a onclick='excluirProduto(" + produto.id + ")' href='#'>excluir</a>" + 
+				" <a onclick='alterarProduto(" + produto.id + ")' href='#'>alterar</a></td>" +
 			"</tr>"	);
 	});
 }
@@ -53,7 +53,19 @@ var excluirProduto = function(id){
 var alterarProduto = function(id){
 	$.ajax({
 		  url: "/produto_web/produto",
-		  data: {acao: 'alterar', idProduto: id},
+		  data: {acao: 'buscar', idProduto: id},
 		  type: "POST",
+		  success: function(result){
+			  var resultado = $.parseJSON(result);
+			  if(resultado.sucesso){
+				  var produto = resultado.dados[0];
+				  $("#idProduto").val(produto.id);
+				  $("#nome").val(produto.nome);
+				  $("#descricao").val(produto.descricao);
+				  $("#valor").val(produto.valor);
+				  $("#categoria").val(produto.categoria);
+				  $('#modalAlterarProduto').modal('show');
+			  }
+		  }
 	});
 }

@@ -9,10 +9,6 @@ $("#btnInserirCategoria").on("click", function(){
 	  });
 });
 
-$("#btnLimparFormulario").on("click", function(){
-	limparCampos();
-});
-
 getFormData = function(){
 	var $inputs = $('.form-control');
 	var obj = {};
