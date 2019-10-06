@@ -9,25 +9,26 @@ import servlet.ProdutoVO;
 
 public class ProdutoService implements IProdutoService {
 	
-	private IProdutoDAO produtoDAO;
+	private IProdutoDAO produtoDAO = new ProdutoDAO();
 
-	public void salvar(Produto produto) {
+	public void salvar(Produto produto) throws RuntimeException{
 		if(produto.getId() == null) {
 			getProdutoDAO().insere(produto);
 		}else {
 			getProdutoDAO().alterar(produto);
 		}
 	}
-
-	public List<ProdutoVO> recuperarTodos() {
+	
+	public List<ProdutoVO> recuperarTodos() throws RuntimeException{
 		return getProdutoDAO().recuperarTodos();
 	}
 	
+	public void exluir(Integer id) {
+		getProdutoDAO().excluir(id);
+	}
+	
 	public IProdutoDAO getProdutoDAO() {
-		if (produtoDAO == null) {
-			produtoDAO = new ProdutoDAO();
-		}
 		return produtoDAO;
 	}
-
+	
 }

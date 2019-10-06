@@ -12,7 +12,7 @@ import servlet.ProdutoVO;
 
 public class ProdutoDAO implements IProdutoDAO {
 
-	public List<ProdutoVO> recuperarTodos() {
+	public List<ProdutoVO> recuperarTodos() throws RuntimeException{
 		List<ProdutoVO> produtosVO = new ArrayList<ProdutoVO>();
 		StringBuilder sql = new StringBuilder();
 		sql.append(" SELECT ")
@@ -39,26 +39,36 @@ public class ProdutoDAO implements IProdutoDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new RuntimeException("Falha ao tentar buscar produtos");
 		}
 		return produtosVO;
 	}
 
-	public Produto recuperarPorId(Integer id) {
+	public Produto recuperarPorId(Integer id) throws RuntimeException{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Produto alterar(Produto produto) {
+	public Produto alterar(Produto produto) throws RuntimeException{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public Produto excluir(Produto produto) {
-		// TODO Auto-generated method stub
-		return null;
+	public void excluir(Integer id) throws RuntimeException{
+		String sql = " DELETE FROM PRODUTO WHERE ID = ? ";
+		try {
+			Connection conn = ConnectionMySQL.getConexaoMySQL();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, id);
+			statement.execute();
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Falha ao tentar excluir produto");
+		}
 	}
 
-	public void insere(Produto produto) {		
+	public void insere(Produto produto) throws RuntimeException{		
 		try {
 			Connection conn = ConnectionMySQL.getConexaoMySQL();
 			String sql = " INSERT INTO PRODUTO(NOME, DESCRICAO, VALOR, ID_CATEGORIA) VALUES(?, ?, ?, ?) ";
@@ -67,10 +77,11 @@ public class ProdutoDAO implements IProdutoDAO {
 			statement.setString(2, produto.getDescricao());
 			statement.setDouble(3, produto.getValor());
 			statement.setInt(4, produto.getCategoria());
-			statement.execute(); //atencao
+			statement.execute();
 			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new RuntimeException("Falha ao tentar inserir produto");
 		}		
 	}	
 

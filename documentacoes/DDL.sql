@@ -2,7 +2,7 @@ CREATE TABLE PRODUTO(
 	id INT(6) AUTO_INCREMENT PRIMARY KEY,
 	nome VARCHAR(30) NOT NULL,
 	descricao VARCHAR(100),
-	valor DECIMAL(4,2),
+	valor DECIMAL(8,2),
 	id_categoria INT(6)
 );
 

@@ -4,15 +4,12 @@
 <t:principal>
 	<jsp:body>
 		<div class="col col-12">
-			<h2>Produtos</h2>
-			<table id="tblProduto" class="table table-striped table-bordered table-hover" style="text-align: center;">
+			<h2>Categorias</h2>
+			<table id="tblCategoria" class="table table-striped table-bordered table-hover" style="text-align: center;">
 				<thead class="thead-light">
 					<tr>
 						<th>ID</th>
-						<th>NOME</th>
 						<th>DESCRIÇÃO</th>
-						<th>VALOR</th>
-						<th>CATEGORIA</th>
 						<th>AÇÃO</th>
 					</tr>
 				</thead>
@@ -20,6 +17,6 @@
 				</tbody>
 			</table>
 		</div>	
-		<script src="./js/produto/listagemProduto.js"></script>
+		<script src="./js/categoria/listagemCategoria.js"></script>
     </jsp:body>
 </t:principal>

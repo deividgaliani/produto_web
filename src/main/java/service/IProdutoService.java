@@ -11,4 +11,6 @@ public interface IProdutoService {
 	
 	public List<ProdutoVO> recuperarTodos();
 	
+	public void exluir(Integer id);
+	
 }

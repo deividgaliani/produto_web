@@ -1,16 +1,13 @@
-package model;
+package servlet;
 
-public class Categoria {
-	
+public class CategoriaVO {
+
 	private Integer id;
 	
 	private String descricao;
-
-	public Categoria() {
-		//default constructor
-	}
-
-	public Categoria(String descricao) {
+	
+	public CategoriaVO(Integer id, String descricao) {
+		this.id = id;
 		this.descricao = descricao;
 	}
 
@@ -29,5 +26,6 @@ public class Categoria {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+	
 	
 }

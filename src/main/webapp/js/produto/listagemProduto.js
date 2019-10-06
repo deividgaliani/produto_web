@@ -6,21 +6,54 @@ var getProdutos = function(){
 	$.ajax({
 		  url: "/produto_web/produto", 
 		  success: function(result){
-			  produtos = $.parseJSON(result);
-			  adicionaDadosTabela(produtos);
+			  var resultado = $.parseJSON(result);
+			  if(resultado.sucesso){
+				  adicionaDadosTabela(resultado.dados);
+			  }else{
+				  alert(resultado.mensagem);
+			  }
 		  }
 	});
 };
 
 var adicionaDadosTabela = function(produtos){
-	$tbl = $("#tblProduto tbody");
-	
+	$tblBody = $("#tblProduto tbody");
+	$("#tblProduto tbody tr").remove();
 	$.each(produtos, function(index, produto){
-		$tbl.append("<tr>" +
-				"<td>" + 1 +"</td>" +
+		$tblBody.append(
+			"<tr>" +
+				"<td>" + produto.id +"</td>" +
 				"<td>" + produto.nome +"</td>" +
 				"<td>" + produto.descricao +"</td>" +
 				"<td>" + produto.valor +"</td>" +
-				"<td>" + produto.descricaoCategoria +"</td></tr>"	);
+				"<td>" + produto.descricaoCategoria +"</td>" +
+				"<td><a onclick='excluirProduto(" + produto.id + ")' href='#'>excluir</a></td>" + 
+//				" <a onclick='alterarProduto(" + produto.id + ")' href='#'>alterar</a></td>" +
+			"</tr>"	);
+	});
+}
+
+var excluirProduto = function(id){
+	$.ajax({
+		  url: "/produto_web/produto",
+		  data: {acao: 'excluir', idProduto: id},
+		  type: "POST",
+		  success: function(result){
+			  var resultado = $.parseJSON(result);
+			  if(resultado.sucesso){
+				  getProdutos();
+				  alert("Produto excluido com sucesso");
+			  }else{
+				  alert(resultado.mensagem);
+			  }
+		  }
+	});
+}
+
+var alterarProduto = function(id){
+	$.ajax({
+		  url: "/produto_web/produto",
+		  data: {acao: 'alterar', idProduto: id},
+		  type: "POST",
 	});
 }
