@@ -31,6 +31,11 @@
 		    <select class="form-control" id="categoria" name="categoria"></select>
 		  </div>
 		  
+		  <div class="form-group col col-12">
+		    <label for="imagem">Imagem</label>
+		    <input type="file" class="form-control-file" id="imagem" name="imagem">
+		  </div>
+		  
 		  <div class="col col-12" style="text-align: right;">
 			  <button type="button" id="btnInserirProduto" class="btn btn-primary">Cadastrar</button>
 			  <button type="button" id="btnLimparFormulario" class="btn btn-warning">Limpar</button>

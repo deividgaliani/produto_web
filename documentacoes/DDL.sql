@@ -3,7 +3,8 @@ CREATE TABLE PRODUTO(
 	nome VARCHAR(30) NOT NULL,
 	descricao VARCHAR(100),
 	valor DECIMAL(8,2),
-	id_categoria INT(6)
+	id_categoria INT(6),
+	img_path VARCHAR(200)
 );
 
 CREATE TABLE CATEGORIA(

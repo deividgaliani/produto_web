@@ -4,4 +4,14 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>FileServlet</servlet-name>
+  	<display-name>FileServlet</display-name>
+  	<description></description>
+  	<servlet-class>servlet.FileServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>FileServlet</servlet-name>
+  	<url-pattern>/imagem</url-pattern>
+  </servlet-mapping>
 </web-app>

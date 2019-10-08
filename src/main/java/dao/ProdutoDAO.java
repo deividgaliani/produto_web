@@ -110,12 +110,13 @@ public class ProdutoDAO implements IProdutoDAO {
 	public void insere(Produto produto){		
 		try {
 			Connection conn = ConnectionMySQL.getConexaoMySQL();
-			String sql = " INSERT INTO PRODUTO(NOME, DESCRICAO, VALOR, ID_CATEGORIA) VALUES(?, ?, ?, ?) ";
+			String sql = " INSERT INTO PRODUTO(NOME, DESCRICAO, VALOR, ID_CATEGORIA, IMG_PATH) VALUES(?, ?, ?, ?, ?) ";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, produto.getNome());
 			statement.setString(2, produto.getDescricao());
 			statement.setDouble(3, produto.getValor());
 			statement.setInt(4, produto.getCategoria());
+			statement.setString(5, produto.getImagePath());
 			statement.execute();
 			statement.close();
 		} catch (SQLException e) {

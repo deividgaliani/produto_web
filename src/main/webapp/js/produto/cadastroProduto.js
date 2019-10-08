@@ -13,6 +13,23 @@ var recuperarComboCategorias = function(){
 	});
 };
 
+$('#imagem').change(function (event) {
+	var form = new FormData();
+    form.append('imagem', event.target.files[0]);
+//    var name = event.target.files[0].name;
+//    form.append('titulo', name);
+    $.ajax({
+	    url : '/produto_web/imagem',
+	    type : 'POST',
+	    data : form,
+	    processData: false,
+	    contentType: false,
+	    success : function(data) {
+	        console.log(data);
+	    }
+    });
+});
+
 var adicionaDadosCombo = function(categorias){
 	$comboCategoria = $("#categoria");
 	$comboCategoria.append("<option value=''>Selecione</option>");
@@ -53,7 +70,7 @@ getFormData = function(){
 		var $input = $(input);
 		$.extend(obj, {[$input.attr('id')]: $input.val()})
 	});
-	$.extend(obj, {acao: 'salvar'})
+	$.extend(obj, {acao: 'salvar'});
 	return obj;
 }
 

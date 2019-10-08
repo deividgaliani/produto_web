@@ -11,17 +11,20 @@ public class Produto {
 	private Double valor;
 	
 	private Integer categoria;
+	
+	private String imagePath;
 
 	public Produto() {
 		//default constructor
 	}
 	
-	public Produto(Integer id, String nome, String descricao, Double valor, Integer categoria) throws RuntimeException{
+	public Produto(Integer id, String nome, String descricao, Double valor, Integer categoria, String imagePath) throws RuntimeException{
 		setId(id);
 		setNome(nome);
 		setDescricao(descricao);
 		setValor(valor);
 		setCategoria(categoria);
+		setImagePath(imagePath);
 	}
 
 	public String getNome() {
@@ -68,6 +71,15 @@ public class Produto {
 		this.id = id;
 	}
 	
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+//		validaValorNulo(imagePath);
+		this.imagePath = imagePath;
+	}
+
 	private void validaValorNulo(Object valor) throws RuntimeException{
 		if(valor == null) {
 			throw new RuntimeException("Todos os campos são obrigatórios");

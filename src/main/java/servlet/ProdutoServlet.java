@@ -1,17 +1,18 @@
 package servlet;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -25,7 +26,7 @@ public class ProdutoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private IProdutoService produtoService = new ProdutoService();
-       
+	
     public ProdutoServlet() {
         super();
     }
@@ -44,7 +45,7 @@ public class ProdutoServlet extends HttpServlet {
 		String json = gson.toJson(resultado);
 		response.getWriter().write(json);
 	}
-
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ResultadoOperacao<ProdutoVO> resultado = new ResultadoOperacao<ProdutoVO>();
 		Gson gson = new GsonBuilder().create();
@@ -78,13 +79,15 @@ public class ProdutoServlet extends HttpServlet {
 		resultado.setSucesso(Boolean.TRUE);
 	}
 
-	private void salvarProduto(HttpServletRequest request, ResultadoOperacao<ProdutoVO> resultado) {
+	private void salvarProduto(HttpServletRequest request, ResultadoOperacao<ProdutoVO> resultado) throws IOException {
 		String nome = request.getParameter("nome");
 		String descricao = request.getParameter("descricao");
 		Double valor = request.getParameter("valor") != null ? Double.parseDouble(request.getParameter("valor")) : null;
 		Integer categoria = !request.getParameter("categoria").isEmpty() ? Integer.parseInt(request.getParameter("categoria")) : null;
 		Integer idProduto = request.getParameter("idProduto") != null ? Integer.parseInt(request.getParameter("idProduto")) : null;
-		Produto produto = new Produto(idProduto, nome, descricao, valor, categoria);
+		String filePath = (String) request.getSession().getAttribute("filePath");
+		
+		Produto produto = new Produto(idProduto, nome, descricao, valor, categoria, filePath);
 		getProdutoService().salvar(produto);
 		resultado.setMensagem("Produto persistido com sucesso");
 		resultado.setSucesso(Boolean.TRUE);
