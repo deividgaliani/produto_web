@@ -20,7 +20,8 @@ public class ProdutoDAO implements IProdutoDAO {
 		   .append(" 		prd.NOME \"NOME\", ")
 		   .append(" 		prd.DESCRICAO \"DESCRICAO\", ")
 		   .append("		prd.VALOR \"VALOR\", ")
-		   .append("		cat.DESCRICAO \"CATEGORIA\" ")
+		   .append("		cat.DESCRICAO \"CATEGORIA\", ")
+		   .append("		prd.IMG_PATH \"IMG_PATH\" ")
 		   .append(" FROM PRODUTO prd ")
 		   .append(" INNER JOIN CATEGORIA cat ON cat.id = prd.id_categoria ");
 		
@@ -29,12 +30,13 @@ public class ProdutoDAO implements IProdutoDAO {
 			PreparedStatement ps = conn.prepareStatement(sql.toString());
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				Integer id = rs.getInt("ID");
-				String nome = rs.getString("NOME");
-				String descricao = rs.getString("DESCRICAO");
-				Double valor = rs.getDouble("VALOR");
-				String descricaoCategoria = rs.getString("CATEGORIA");
-				ProdutoVO vo = new ProdutoVO(id, nome, descricao, valor, descricaoCategoria);
+				ProdutoVO vo = new ProdutoVO();
+				vo.setId(rs.getInt("ID"));
+				vo.setNome(rs.getString("NOME"));
+				vo.setDescricao(rs.getString("DESCRICAO"));
+				vo.setValor(rs.getDouble("VALOR"));
+				vo.setDescricaoCategoria(rs.getString("CATEGORIA"));
+				vo.setImgPath(rs.getString("IMG_PATH"));
 				produtosVO.add(vo);		
 			}
 		} catch (SQLException e) {
@@ -52,7 +54,8 @@ public class ProdutoDAO implements IProdutoDAO {
 		   .append(" 		prd.NOME \"NOME\", ")
 		   .append(" 		prd.DESCRICAO \"DESCRICAO\", ")
 		   .append("		prd.VALOR \"VALOR\", ")
-		   .append("		prd.ID_CATEGORIA \"CATEGORIA\" ")
+		   .append("		prd.ID_CATEGORIA \"CATEGORIA\", ")
+		   .append("		prd.IMG_PATH \"IMG_PATH\" ")
 		   .append(" FROM PRODUTO prd ")
 		   .append(" WHERE prd.ID = ? ");
 		
@@ -67,6 +70,7 @@ public class ProdutoDAO implements IProdutoDAO {
 				produto.setDescricao(rs.getString("DESCRICAO"));
 				produto.setValor(rs.getDouble("VALOR"));
 				produto.setCategoria(rs.getInt("CATEGORIA"));
+				produto.setImgPath(rs.getString("IMG_PATH"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

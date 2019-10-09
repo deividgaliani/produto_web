@@ -77,4 +77,5 @@ getFormData = function(){
 limparCampos = function(){
 	var $inputs = $('.form-control');
 	$inputs.val('');
+	$("#imagem").val('');
 }

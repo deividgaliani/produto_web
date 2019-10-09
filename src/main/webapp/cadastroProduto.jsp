@@ -33,7 +33,7 @@
 		  
 		  <div class="form-group col col-12">
 		    <label for="imagem">Imagem</label>
-		    <input type="file" class="form-control-file" id="imagem" name="imagem">
+		    <input type="file" class="form-control-file" id="imagem" name="imagem" accept="image/*" />
 		  </div>
 		  
 		  <div class="col col-12" style="text-align: right;">

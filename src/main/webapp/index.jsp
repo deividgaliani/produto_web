@@ -3,24 +3,10 @@
 
 <t:principal>
 	<jsp:body>
-		<div class="col col-12">
-			<h2>Produtos</h2>
-			<table id="tblProduto" class="table table-striped table-bordered table-hover" style="text-align: center;">
-				<thead class="thead-light">
-					<tr>
-						<th>ID</th>
-						<th>NOME</th>
-						<th>DESCRIÇÃO</th>
-						<th>VALOR</th>
-						<th>CATEGORIA</th>
-						<th>AÇÃO</th>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
+		<h2 class="col">Produtos</h2>
+		<div id="containerLoja" class="col col-12 card-column">
+			<!-- Conteudo -->			
 		</div>	
-		<script src="./js/produto/listagemProduto.js"></script>
-		<%@ include file = "./modalAlterarProduto.jsp" %>
+		<script src="./js/produto/listagemLoja.js"></script>
     </jsp:body>
 </t:principal>

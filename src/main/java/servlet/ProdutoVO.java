@@ -13,6 +13,8 @@ public class ProdutoVO {
 	private Integer categoria;
 	
 	private String descricaoCategoria;
+	
+	private String imgPath;
 
 	public ProdutoVO() {
 		//default constructor
@@ -72,6 +74,14 @@ public class ProdutoVO {
 
 	public void setCategoria(Integer categoria) {
 		this.categoria = categoria;
+	}
+
+	public String getImgPath() {
+		return imgPath;
+	}
+
+	public void setImgPath(String imgPath) {
+		this.imgPath = imgPath;
 	}
 	
 }

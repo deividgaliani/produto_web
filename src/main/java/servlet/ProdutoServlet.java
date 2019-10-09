@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,6 +14,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.FileUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -36,6 +39,13 @@ public class ProdutoServlet extends HttpServlet {
 		Gson gson = new GsonBuilder().create();
 		try {
 			List<ProdutoVO> produtos = getProdutoService().recuperarTodos();
+			
+			for (ProdutoVO vo : produtos) {
+				byte[] fileContent = FileUtils.readFileToByteArray(new File(vo.getImgPath()));
+				String encodedString = Base64.getEncoder().encodeToString(fileContent);
+				vo.setImgPath(encodedString);
+			}
+			
 			resultado.setDados(produtos);
 			resultado.setSucesso(Boolean.TRUE);
 		}catch (Exception e) {

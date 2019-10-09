@@ -46,6 +46,9 @@
 	
 	  <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
 	    <ul class="navbar-nav mr-auto">
+    	  <li class="nav-item">
+	        <a class="nav-link" href="./listagemProduto.jsp">Listagem produtos<span class="sr-only"></span></a>
+	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="./cadastroProduto.jsp">Cadastro produto<span class="sr-only"></span></a>
 	      </li>
